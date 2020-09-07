@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const User = require("../models/User");
-
+const config = require("config");
 
 /**
  * @route       POST /api/users
@@ -36,13 +37,14 @@ router.post('/users', [
             user.password = await hashPassword(password);
     
             await user.save();
-            
+            const token = await generateJWTToken(user._id);
             res.status(201).json({
-                user
+                token
             });
+            
         } catch (err) {
             console.log('Error while creating a new user');
-            console.log(err);
+            console.log(err.message);
         }
     }
 });
@@ -50,6 +52,21 @@ router.post('/users', [
 const hashPassword = async (password) => {
     const salt = await bcrypt.genSalt();
     return await bcrypt.hash(password, salt);
+}
+
+const generateJWTToken = async (id) => {
+    const payload = {
+        user: {
+            id
+        }
+    }
+    try {
+        const token = await jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 3 * 24 * 60 * 60 });
+        return token;
+    } catch (err) {
+        console.log('error while creating JWT token');
+        console.log(err);
+    }
 }
 
 module.exports = router;
