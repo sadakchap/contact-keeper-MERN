@@ -10,6 +10,7 @@ const { requireAuth } = require("../middleware/authMiddleware");
  * @access      Private
  */
 router.get("/", requireAuth, async (req, res) => {
+    console.log('logged in User', req.user.id)
     try {
         const contacts = await Contact.find({ user: req.user }).sort('-createdAt');
         return res.status(200).json({
@@ -26,8 +27,32 @@ router.get("/", requireAuth, async (req, res) => {
  * @description add contact
  * @access      Private
  */
-router.post("/", (req, res) => {
-    res.send('add a contact')
+router.post(
+    "/", 
+    requireAuth , 
+    [
+        check('name', 'Please include a name').notEmpty()
+    ], 
+    async(req, res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).json({
+                errors
+            });
+        }
+
+        const { name, email, phone, type } = req.body;
+        try {
+            const newContact = new Contact({ name, email, phone, user: req.user.id });
+            if(type) newContact.type = type
+            const contact = await newContact.save();
+            return res.status(201).json({
+                contact
+            });
+        } catch (err) {
+            console.log('Error while creating a new contact');
+            console.log(err.message);
+        }   
 });
 
 /**
