@@ -3,7 +3,12 @@ const app = express();
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const contactRoutes = require("./routes/contact");
+const connectDB = require("./config/db");
 
+connectDB();
+
+// Init Middleware
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.status(200).json({
