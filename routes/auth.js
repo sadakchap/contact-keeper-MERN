@@ -45,8 +45,6 @@ router.post('/login',  [
     }
 
     const { email, password } = req.body;
-    console.log(email, password);
-
     try {
         let user = await User.findOne({ email });
         if(user){
@@ -72,7 +70,6 @@ router.post('/login',  [
             msg: 'Server Error'
         });
     }
-    res.send('log in user')
 });
 
 module.exports = router;

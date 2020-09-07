@@ -10,7 +10,7 @@ module.exports.requireAuth = (req, res, next) => {
     }
     try {
         const decodedToken = jwt.verify(token, config.get('jwtSecret'));
-        req.user = decodedToken.id
+        req.user = decodedToken.user
         next();
     } catch (err) {
         console.log(err.message);
