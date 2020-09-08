@@ -2,11 +2,18 @@ const config = require("config");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+/**
+ * Takes plain password & returns hashed passowrd
+ * @param {string} password 
+ */
 const hashPassword = async (password) => {
     const salt = await bcrypt.genSalt();
     return await bcrypt.hash(password, salt);
 }
-
+/**
+ * takes user unique ID & returns JWT Token
+ * @param {*} id User Object _id
+ */
 const generateJWTToken = async (id) => {
     const payload = {
         user: {id}
