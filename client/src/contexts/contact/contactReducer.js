@@ -15,6 +15,18 @@ const contactReducer = (state, action) => {
         case UPDATE_CONTACT:
             return ;
         case SET_CURRENT:
+            return {
+                ...state,
+                current: action.payload
+            };
+        case CLEAR_CURRENT:
+            return {
+                ...state,
+                current: null
+            };  
+        case FILTER_CONTACTS:
+            return;    
+        case CLEAR_FILTER:
             return;    
         default:
             return state;
