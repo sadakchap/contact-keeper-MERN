@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const ContactItem = ({ contact }) => {
 
-    const { name, email, phone, type, id } = contact;
+    const { name, email, phone, type } = contact;
     
     return (
         <div className="card bg-light">
