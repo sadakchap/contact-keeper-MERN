@@ -27,21 +27,7 @@ const ContactState = (props) => {
                 email: 'tanaypratap@gmail.com',
                 phone: '903-214-4678',
                 type: 'personal'
-            },
-            {
-                id: 4,
-                name: 'Nupur Harinkhede',
-                email: 'nupur10@gmail.com',
-                phone: '867-214-2567',
-                type: 'personal'
-            },
-            {
-                id: 5,
-                name: 'Kritika Vish',
-                email: 'kittu11@gmail.com',
-                phone: '947-794-1660',
-                type: 'personal'
-            },
+            }
         ]
     }
 
