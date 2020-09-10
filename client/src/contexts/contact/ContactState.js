@@ -75,6 +75,7 @@ const ContactState = (props) => {
       value={{
         contacts: state.contacts,
         current: state.current,
+        filter: state.filter,
         addContact,
         deleteContact,
         setCurrent,
