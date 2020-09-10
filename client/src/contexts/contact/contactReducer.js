@@ -28,10 +28,19 @@ const contactReducer = (state, action) => {
                 ...state,
                 current: null
             };  
-        case FILTER_CONTACTS:
-            return;    
         case CLEAR_FILTER:
-            return;    
+            return {
+                ...state,
+                filter: null
+            };    
+        case FILTER_CONTACTS:
+            return {
+                ...state,
+                filter: state.contacts.filter(contact => {
+                    const regex = new RegExp(`${action.payload}`, 'gi')
+                    return contact.name.match(regex) || contact.email.match(regex);
+                })
+            };
         default:
             return state;
     }
