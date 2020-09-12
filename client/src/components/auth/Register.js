@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react';
+import AlertContext from '../../contexts/alert/alertContext';
 
 const Register = () => {
 
@@ -9,6 +10,8 @@ const Register = () => {
         password2: ''
     });
 
+    const { setAlert } = useContext(AlertContext);
+
     const onChange = (e) => {
         setUser({
             ...user,
@@ -18,6 +21,11 @@ const Register = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if(name === '' || email === '' || password === ''){
+            setAlert('Please fill in all fields', 'danger');
+        }else if(password !== password2){
+            setAlert('Password do not match', 'danger');
+        }
         console.log('register display');
     }
 
@@ -37,6 +45,7 @@ const Register = () => {
               id="name"
               value={name}
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -47,6 +56,7 @@ const Register = () => {
               id="email"
               value={email}
               onChange={onChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -57,6 +67,8 @@ const Register = () => {
               id="password"
               value={password}
               onChange={onChange}
+              required
+              minLength="6"
             />
           </div>
           <div className="form-group">
@@ -67,6 +79,8 @@ const Register = () => {
               id="password2"
               value={password2}
               onChange={onChange}
+              minLength="6"
+              required
             />
           </div>
           <input
