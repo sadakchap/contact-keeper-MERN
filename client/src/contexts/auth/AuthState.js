@@ -16,13 +16,33 @@ import {
 const AuthState = (props) => {
 
     const initialState = {
-        
+        token: localStorage.getItem('token'),
+        isAuthenticated: null,
+        loading: true,
+        error: null,
+        user: null
     }
 
     const [state, dispatch] = useReducer(authReducer, initialState)
 
+    // Load User
+
+    // Register User
+
+    // Login User
+
+    // Logout
+
+    // Clear Errors
+
     return (
-        <AuthContext.Provider value={}>
+        <AuthContext.Provider value={{
+            token: state.token,
+            isAuthenticated: state.isAuthenticated,
+            user: state.user,
+            error: state.error,
+            loading: state.loading
+        }}>
             {props.children}
         </AuthContext.Provider>
     )
