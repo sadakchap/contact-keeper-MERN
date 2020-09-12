@@ -16,8 +16,8 @@ const Register = (props) => {
 
     const onChange = (e) => {
         setUser({
-            ...user,
-            [e.target.name]: e.target.value
+          ...user,
+          [e.target.name]: e.target.value
         });
     }
 
@@ -30,7 +30,7 @@ const Register = (props) => {
       if(isAuthenticated){
         props.history.push('/');
       }
-
+      // eslint-disable-next-line
     }, [error, isAuthenticated]);
 
     const onSubmit = (e) => {

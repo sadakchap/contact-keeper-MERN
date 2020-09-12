@@ -36,11 +36,10 @@ router.post('/login',  [
     check('email', 'Please include valid email').isEmail(),
     check('password', 'Please include password').exists()
 ],async (req, res) => {
-
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        res.status(400).json({
-            error: errors.array()
+        return res.status(400).json({
+            errors: errors.array()
         });
     }
 
@@ -51,22 +50,22 @@ router.post('/login',  [
             const isMatch = await bcrypt.compare(password, user.password);
             if(isMatch){
                 const token = await generateJWTToken(user._id);
-                res.status(200).json({
+                return res.status(200).json({
                     token
                 });
             }else{
-                res.status(400).json({
-                    error: 'Password Incorrect'
+                return res.status(400).json({
+                    msg: 'Password Incorrect'
                 });
             }
         }else{
-            res.status(400).json({
-                error: 'email is not yet registered!'
+            return res.status(400).json({
+                msg: 'email is not yet registered!'
             });
         }
     } catch (err) {
         console.log(err.message);
-        res.status(500).json({
+        return res.status(500).json({
             msg: 'Server Error'
         });
     }

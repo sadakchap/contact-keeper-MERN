@@ -54,18 +54,33 @@ const AuthState = (props) => {
         }
         try {
             const res = await axios.post(`/api/users`, formData, config);
-            dispatch({ type: REGISTER_SUCCESS, payload: res.data})
+            dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+            loadUser();
         } catch (err) {
             dispatch({
                 type: REGISTER_FAIL,
                 payload: err.response.data.msg
             });
         }
-        loadUser();
     }
     // Login User
-    const login = () => {
-
+    const login = async(formData) => {
+        const config = {
+            headers: {
+                'Content-Type': 'Application/json'
+            }
+        }
+        try {
+            console.log('fontent', formData);
+            const res = await axios.post(`/api/auth/login`, formData, config);
+            dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+            loadUser();
+        } catch (err) {
+            dispatch({
+                type: LOGIN_FAIL,
+                payload: err.response.data.msg
+            });
+        }
     }
     // Logout
     const logout = () => {
