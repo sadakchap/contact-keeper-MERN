@@ -12,6 +12,7 @@ import {
   LOGOUT,
   CLEAR_ERRORS,
 } from "../types";
+import setAuthToken from '../../utils/setAuthToken';
 
 
 const AuthState = (props) => {
@@ -27,8 +28,22 @@ const AuthState = (props) => {
     const [state, dispatch] = useReducer(authReducer, initialState)
 
     // Load User
-    const loadUser = () => {
-
+    const loadUser = async() => {
+        if(localStorage.token){
+            setAuthToken(localStorage.getItem('token'));
+        }
+        try {
+            const res = await axios.get('/api/auth');
+            console.log(res.data);
+            dispatch({
+                type: USER_LOADED,
+                payload: res.data.user
+            });
+        } catch (err) {
+            dispatch({
+                type: AUTH_ERROR
+            });
+        }
     }
     // Register User
     const register = async(formData) => {
@@ -46,6 +61,7 @@ const AuthState = (props) => {
                 payload: err.response.data.msg
             });
         }
+        loadUser();
     }
     // Login User
     const login = () => {

@@ -23,11 +23,13 @@ export default (state, action) => {
             };
     
         case USER_LOADED:
-            return state;
-    
-        case AUTH_ERROR:
-            return state;
-    
+            return {
+                ...state,
+                user: action.payload,
+                isAuthenticated: true,
+                loading: false
+            };
+        
         case LOGIN_SUCCESS:
             return state;
     
@@ -38,6 +40,7 @@ export default (state, action) => {
             return state;
     
         case CLEAR_ERRORS:
+        case AUTH_ERROR:
             return {
                 ...state,
                 error: null

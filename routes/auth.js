@@ -12,9 +12,9 @@ const { requireAuth } = require("../middleware/authMiddleware");
  * @description Get logged in User
  * @access      Private
  */
-router.get('/login', requireAuth, async (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
     try {
-        const user = await User.findOne(req.user).select("-password");
+        const user = await User.findById(req.user.id).select("-password");
         res.status(200).json({
             user
         });

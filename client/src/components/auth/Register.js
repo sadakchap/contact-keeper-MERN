@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../contexts/alert/alertContext';
 import AuthContext from '../../contexts/auth/authContext';
 
-const Register = () => {
+const Register = (props) => {
 
     const [user, setUser] = useState({
         name: '',
@@ -12,7 +12,7 @@ const Register = () => {
     });
 
     const { setAlert } = useContext(AlertContext);
-    const { register, error, clearErrors } = useContext(AuthContext);
+    const { register, error, clearErrors, isAuthenticated } = useContext(AuthContext);
 
     const onChange = (e) => {
         setUser({
@@ -26,7 +26,12 @@ const Register = () => {
         setAlert('User already exists', 'danger');
         clearErrors();
       }
-    }, [error]);
+
+      if(isAuthenticated){
+        props.history.push('/');
+      }
+
+    }, [error, isAuthenticated]);
 
     const onSubmit = (e) => {
         e.preventDefault();
