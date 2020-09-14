@@ -46,9 +46,7 @@ router.post(
             const newContact = new Contact({ name, email, phone, user: req.user.id });
             if(type) newContact.type = type
             const contact = await newContact.save();
-            return res.status(201).json({
-                contact
-            });
+            return res.status(201).json(contact);
         } catch (err) {
             console.log('Error while creating a new contact');
             console.log(err.message);

@@ -8,19 +8,19 @@ const Contacts = () => {
     const { contacts, filter } = contactContext;
 
     if(contacts.length === 0)
-        return (<h1>Please Add Contacts...</h1>);
+        return (<h5 className="lead">Please Add Contacts...</h5>);
 
     return (
       <Fragment>
         <TransitionGroup>
           {filter !== null
             ? filter.map((contact) => (
-                <CSSTransition key={contact.id} timeout={500} classNames="item">
+                <CSSTransition key={contact._id} timeout={500} classNames="item">
                   <ContactItem contact={contact} />
                 </CSSTransition>
               ))
             : contacts.map((contact) => (
-                <CSSTransition key={contact.id} timeout={500} classNames="item">
+                <CSSTransition key={contact._id} timeout={500} classNames="item">
                   <ContactItem contact={contact} />
                 </CSSTransition>
               ))}
