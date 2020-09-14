@@ -8,7 +8,7 @@ const connectDB = require("./config/db");
 connectDB();
 
 // Init Middleware
-app.use(express.json())
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.status(200).json({

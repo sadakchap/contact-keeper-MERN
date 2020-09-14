@@ -1,4 +1,4 @@
-import { ADD_CONTACT, DELETE_CONTACT, UPDATE_CONTACT, SET_CURRENT, CLEAR_CURRENT, FILTER_CONTACTS, CLEAR_FILTER } from '../types';
+import { ADD_CONTACT, DELETE_CONTACT, UPDATE_CONTACT, SET_CURRENT, CLEAR_CURRENT, FILTER_CONTACTS, CLEAR_FILTER, CONTACT_ERROR } from '../types';
 
 const contactReducer = (state, action) => {
     switch (action.type) {
@@ -41,6 +41,11 @@ const contactReducer = (state, action) => {
                     return contact.name.match(regex) || contact.email.match(regex);
                 })
             };
+        case CONTACT_ERROR:
+            return {
+                ...state,
+                error: action.payload
+            }
         default:
             return state;
     }
