@@ -34,7 +34,6 @@ const AuthState = (props) => {
         }
         try {
             const res = await axios.get('/api/auth');
-            console.log(res.data);
             dispatch({
                 type: USER_LOADED,
                 payload: res.data.user
@@ -71,7 +70,6 @@ const AuthState = (props) => {
             }
         }
         try {
-            console.log('fontent', formData);
             const res = await axios.post(`/api/auth/login`, formData, config);
             dispatch({ type: LOGIN_SUCCESS, payload: res.data });
             loadUser();
