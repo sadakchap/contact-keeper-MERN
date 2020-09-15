@@ -1,4 +1,3 @@
-import { header } from 'express-validator';
 import React, { Fragment } from 'react';
 import spinner from './loader.gif';
 

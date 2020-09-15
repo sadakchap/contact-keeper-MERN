@@ -81,10 +81,11 @@ router.put("/:id", requireAuth, async(req, res) => {
             });
         }
 
-        contact = await Contact.findByIdAndUpdate(req.params.id, {
-            $set: contactFields,
-            new: true
-        });
+        contact = await Contact.findByIdAndUpdate(
+          req.params.id,
+          { $set: contactFields },
+          { new: true }
+        );
 
         return res.status(201).json({ contact });
 
