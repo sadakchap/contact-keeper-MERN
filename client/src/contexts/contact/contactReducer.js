@@ -2,11 +2,12 @@ import { GET_CONTACTS ,ADD_CONTACT, DELETE_CONTACT, UPDATE_CONTACT, SET_CURRENT,
 
 const contactReducer = (state, action) => {
     switch (action.type) {
-        case GET_CONTACTS:return {
-          ...state,
-          contacts: action.payload,
-          loading: false,
-        };
+        case GET_CONTACTS:
+            return {
+                ...state,
+                contacts: action.payload,
+                loading: false,
+            };
         case ADD_CONTACT:
             return { 
                 ...state,
