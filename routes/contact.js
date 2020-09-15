@@ -104,7 +104,6 @@ router.put("/:id", requireAuth, async(req, res) => {
  * @access      Private
  */
 router.delete("/:id", requireAuth, async(req, res) => {
-    
     try {
         let contact = await Contact.findById(req.params.id);
         if (!contact) {
