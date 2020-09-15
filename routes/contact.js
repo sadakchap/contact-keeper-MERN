@@ -81,10 +81,11 @@ router.put("/:id", requireAuth, async(req, res) => {
             });
         }
 
-        contact = await Contact.findByIdAndUpdate(req.params.id, {
-            $set: contactFields,
-            new: true
-        });
+        contact = await Contact.findByIdAndUpdate(
+          req.params.id,
+          { $set: contactFields },
+          { new: true }
+        );
 
         return res.status(201).json({ contact });
 
@@ -104,7 +105,6 @@ router.put("/:id", requireAuth, async(req, res) => {
  * @access      Private
  */
 router.delete("/:id", requireAuth, async(req, res) => {
-    
     try {
         let contact = await Contact.findById(req.params.id);
         if (!contact) {
